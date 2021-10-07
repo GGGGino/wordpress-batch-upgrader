@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  wordpress:
+    image: conetix/wordpress-with-wp-cli
+    restart: always
+    ports:
+      - '80:80'
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: bonta
+    volumes:
+      - './bonta000:/var/www/html'
+  db:
+    image: 'mysql:5.7'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+  pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: root
+      PHP_UPLOAD_MAX_FILESIZE: 1G
+      PHP_MAX_INPUT_VARS: 1G
+      UPLOAD_LIMIT: 1G
+    ports:
+      - '81:80'
