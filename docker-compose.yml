@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  wordpress:
+  w-bonta000:
     image: conetix/wordpress-with-wp-cli
     restart: always
     ports:
@@ -11,7 +11,19 @@ services:
       WORDPRESS_DB_PASSWORD: root
       WORDPRESS_DB_NAME: bonta
     volumes:
-      - './bonta000:/var/www/html'
+      - './projects/w-bonta000:/var/www/html'
+  w-bonta001:
+    image: conetix/wordpress-with-wp-cli
+    restart: always
+    ports:
+      - '83:80'
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DB_NAME: bonta2
+    volumes:
+      - './projects/w-bonta001:/var/www/html'
   db:
     image: 'mysql:5.7'
     restart: always
