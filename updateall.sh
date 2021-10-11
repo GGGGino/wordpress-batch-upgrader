@@ -38,19 +38,21 @@ do
         fi
     fi
     
-    #docker-compose up -d $FOLDER_NAME
+    docker-compose up -d $FOLDER_NAME
 
-    #docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update
-    #docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update-db
-    #docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
-    #docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root theme update --all
+    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update
+    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update-db
+    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
+    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root theme update --all
 
-    #docker-compose exec $FOLDER_NAME sudo chown -R $myUser:$myGroup
+    docker-compose exec $FOLDER_NAME sudo chown -R $myUser:$myGroup
 
     if [ "$commit" = true ]; then
+        cd $d
         git add .
         git commit -m "$commitMessage"
+        cd ../..
     fi
 
-    #docker-compose stop $FOLDER_NAME
+    docker-compose stop $FOLDER_NAME
 done
