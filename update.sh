@@ -12,7 +12,7 @@ do
     c)  # Check if I can commit the update
         commit=true
         ;;
-    b)  # Get the branch where commit
+    b)  # Get the branch where execute commit
         branchToCommit=$OPTARG
         ;;
     m)
@@ -37,15 +37,13 @@ do
             git checkout -B $branchToCommit
         fi
     fi
-    
-    docker-compose up -d $FOLDER_NAME
 
-    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update
-    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update-db
-    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
-    docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root theme update --all
+    docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update
+    # docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update-db
+    # docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
+    # docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root theme update --all
 
-    docker-compose exec $FOLDER_NAME sudo chown -R $myUser:$myGroup
+    sudo chown -R $myUser:$myGroup ./
 
     if [ "$commit" = true ]; then
         cd $d
@@ -53,6 +51,4 @@ do
         git commit -m "$commitMessage"
         cd ../..
     fi
-
-    docker-compose stop $FOLDER_NAME
 done
