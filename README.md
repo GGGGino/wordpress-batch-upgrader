@@ -1,12 +1,4 @@
-/bin/wp-cli.phar --allow-root core update
-/bin/wp-cli.phar --allow-root plugin update --all
-/bin/wp-cli.phar --allow-root theme update --all
-
-/bin/wp-cli.phar --allow-root core update-db
-
-sudo chown -R ${MAIN_USER}:${MAIN_GROUP}
-
-## Wordpress batch updater
+# Wordpress batch updater
 
 This project try to run/update all the wordpress inside the folder `projects` with a classic [MySQL](https://hub.docker.com/_/mysql)/[Phpmyadmin](https://hub.docker.com/_/phpmyadmin)/[Wordpress](https://hub.docker.com/r/conetix/wordpress-with-wp-cli/) stack.
 
