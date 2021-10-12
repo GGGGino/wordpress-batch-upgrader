@@ -39,8 +39,8 @@ do
     fi
 
     docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update
-    # docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update-db
-    # docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
+    docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root core update-db
+    docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
     # docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root theme update --all
 
     sudo chown -R $myUser:$myGroup ./
