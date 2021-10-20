@@ -2,7 +2,7 @@ version: '3.1'
 services:
   db:
     image: 'mysql:5.7'
-    restart: always
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: root
   pma:
@@ -14,5 +14,22 @@ services:
       PHP_UPLOAD_MAX_FILESIZE: 1G
       PHP_MAX_INPUT_VARS: 1G
       UPLOAD_LIMIT: 1G
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pma.rule=Host(`pma.localhost`)"
+      - "traefik.http.routers.pma.entrypoints=web"
+  traefik:
+    image: "traefik:v2.5"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
     ports:
-      - '8080:80'
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
