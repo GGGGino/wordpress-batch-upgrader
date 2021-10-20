@@ -6,25 +6,27 @@ All the projects share the same istance of Mysql and Phpmyadmin, and every wordp
 
 ## Initialize the project
 
-- Download your wordpress repo inside the `projects` folder, es. `projects/{wordpressname}`
+- Download your wordpress repo inside the `projects` folder, es. `projects/{folder-name}`
 - Append your project to the `docker-compose.yml`.
 
     ---
         {folder-name}:
             image: conetix/wordpress-with-wp-cli
             container_name: {folder-name}
-            restart: always
-            ports:
-            - '81:80'
+            restart: unless-stopped
             environment:
-            WORDPRESS_DB_HOST: {db}
-            WORDPRESS_DB_USER: {user}
-            WORDPRESS_DB_PASSWORD: {pass}
-            WORDPRESS_DB_NAME: {dbname}
+                WORDPRESS_DB_HOST: db
+                WORDPRESS_DB_USER: root
+                WORDPRESS_DB_PASSWORD: root
+                WORDPRESS_DB_NAME: bonta
             volumes:
-            - './projects/{folder-name}:/var/www/html'
+                - './projects/{folder-name}:/var/www/html'
+            labels:
+                - "traefik.enable=true"
+                - "traefik.http.routers.{folder-name}.rule=Host(`{something}.localhost`)"
+                - "traefik.http.routers.{folder-name}.entrypoints=web"
     ---
-- Set up your wordpress installation, es. Connection
+- Set up your wordpress installation, es. Connection, WP_HOME, WP_SITEURL
 
 ## Upgrade core and plugins
 
@@ -37,13 +39,15 @@ To upgrade you have to launch `./update.sh` with this params:
 | -m          | Message of the commit                                 | "Updated core and plugin" |
 | -u          | Set the folder user                                   | id -u -n                  |
 | -g          | Set the folder group                                  | id -u -n                  |
+| -f          | Set the project to update                             |                           |
+| -e          | Exclude the project from the update                   |                           |
 
-> The upgrade procedure only affect the running container 
+> If the f or e options are not setted, the upgrade procedure only affect the running container 
 
 ## TODO
 
 - [ ] Go lang
-- [ ] Select the project to update
+- [x] Select the project to update
 
 ## Next step
 
