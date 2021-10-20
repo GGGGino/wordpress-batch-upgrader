@@ -15,10 +15,10 @@ All the projects share the same istance of Mysql and Phpmyadmin, and every wordp
             container_name: {folder-name}
             restart: unless-stopped
             environment:
-                WORDPRESS_DB_HOST: db
-                WORDPRESS_DB_USER: root
-                WORDPRESS_DB_PASSWORD: root
-                WORDPRESS_DB_NAME: bonta
+                WORDPRESS_DB_HOST: {db}
+                WORDPRESS_DB_USER: {root}
+                WORDPRESS_DB_PASSWORD: {root}
+                WORDPRESS_DB_NAME: {dbname}
             volumes:
                 - './projects/{folder-name}:/var/www/html'
             labels:
@@ -39,7 +39,7 @@ To upgrade you have to launch `./update.sh` with this params:
 | -m          | Message of the commit                                 | "Updated core and plugin" |
 | -u          | Set the folder user                                   | id -u -n                  |
 | -g          | Set the folder group                                  | id -u -n                  |
-| -f          | Set the project to update                             |                           |
+| -p          | Set the project to update                             |                           |
 | -e          | Exclude the project from the update                   |                           |
 
 > If the f or e options are not setted, the upgrade procedure only affect the running container 
@@ -48,6 +48,7 @@ To upgrade you have to launch `./update.sh` with this params:
 
 - [ ] Go lang
 - [x] Select the project to update
+- [ ] Exclude a project from the update
 
 ## Next step
 

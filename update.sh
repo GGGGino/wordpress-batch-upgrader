@@ -7,7 +7,7 @@ myUser=$(id -u -n)
 myGroup=$(id -g -n)
 projectsToUpdate=projects/*/
 
-while getopts 'cb:m:u:g:f:e:' arg
+while getopts 'cb:m:u:g:p:e:' arg
 do
   case $arg in
     c)  # Check if I can commit the update
@@ -25,7 +25,7 @@ do
     g)
         myGroup=$OPTARG
         ;;
-    f)
+    p)
         projectsToUpdate="projects/${OPTARG}"
         ;;
     e)
