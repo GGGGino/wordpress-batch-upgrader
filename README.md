@@ -4,7 +4,7 @@ This project try to run/update all the wordpress inside the folder `projects` wi
 
 All the projects share the same istance of Mysql and Phpmyadmin, and every wordpress has his own instance.
 
-## Initialize the project
+## Initialize existing project
 
 - Download your wordpress repo inside the `projects` folder, es. `projects/{folder-name}`
 - Append your project to the `docker-compose.yml`.
@@ -27,6 +27,29 @@ All the projects share the same istance of Mysql and Phpmyadmin, and every wordp
                 - "traefik.http.routers.{folder-name}.entrypoints=web"
     ---
 - Set up your wordpress installation, es. Connection, WP_HOME, WP_SITEURL
+
+## Initialize new project
+
+- Append your project to the `docker-compose.yml`.
+
+    ---
+        {folder-name}:
+            image: conetix/wordpress-with-wp-cli
+            container_name: {folder-name}
+            restart: unless-stopped
+            environment:
+                WORDPRESS_DB_HOST: {db}
+                WORDPRESS_DB_USER: {root}
+                WORDPRESS_DB_PASSWORD: {root}
+                WORDPRESS_DB_NAME: {dbname}
+            volumes:
+                - './projects/{folder-name}:/var/www/html'
+            labels:
+                - "traefik.enable=true"
+                - "traefik.http.routers.{folder-name}.rule=Host(`{something}.localhost`)"
+                - "traefik.http.routers.{folder-name}.entrypoints=web"
+    ---
+- Web configuration
 
 ## Upgrade core and plugins
 
