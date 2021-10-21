@@ -1,0 +1,15 @@
+w-sample:
+  image: conetix/wordpress-with-wp-cli
+  container_name: w-sample
+  restart: unless-stopped
+  environment:
+    WORDPRESS_DB_HOST: db
+    WORDPRESS_DB_USER: root
+    WORDPRESS_DB_PASSWORD: root
+    WORDPRESS_DB_NAME: bonta
+  volumes:
+    - './projects/w-sample:/var/www/html'
+  labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.w-sample.rule=Host(`w-sample.localhost`)"
+    - "traefik.http.routers.w-sample.entrypoints=web"

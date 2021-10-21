@@ -41,7 +41,9 @@ do
 
     if [ "$commit" = true ]; then
         if [ ! -z "${branchToCommit}" ]; then
+            cd $d
             git checkout -B $branchToCommit
+            cd ../..
         fi
     fi
 
