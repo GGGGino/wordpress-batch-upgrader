@@ -49,7 +49,23 @@ All the projects share the same istance of Mysql and Phpmyadmin, and every wordp
                 - "traefik.http.routers.{folder-name}.rule=Host(`{something}.localhost`)"
                 - "traefik.http.routers.{folder-name}.entrypoints=web"
     ---
-- Web configuration
+After that your wordpress project is ready to be installed via website or CLI
+### CLI installation
+
+To install you have to launch `./install.sh` with this params:
+
+| Option name | desc                           | Example                      |
+|-------------|--------------------------------|------------------------------|
+| -p          | Set the project to install     | {folder-name}                |
+| -u          | Url of the project             | http://{something}.localhost |
+| -t          | Project name                   | {Anything}                   |
+| -n          | Admin username                 | {adminname}                  |
+| -w          | Admin password                 | {adminpassword}              |
+| -e          | Admin email                    | {adminemail}                 |
+| -g          | If you want git initialization |                              |
+
+Es.
+> ./install.sh -p {folder-name} -u {http://{something}.localhost} -t {Site name} -n {Your admin username} -w {Your password} -e {Your email} [-g If you want git initialization]
 
 ## Upgrade core and plugins
 
