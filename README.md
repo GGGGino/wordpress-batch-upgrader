@@ -47,7 +47,8 @@ All the projects share the same istance of Mysql and Phpmyadmin, and every wordp
             labels:
                 - "traefik.enable=true"
                 - "traefik.http.routers.{folder-name}.rule=Host(`{something}.localhost`)"
-                - "traefik.http.routers.{folder-name}.entrypoints=web"
+                - "traefik.http.routers.{folder-name}.entrypoints=web" # websecure if you want https
+                # - "traefik.http.routers.w-bonta000.tls.certresolver=myresolver" decomment if you want tls entrypoint
     ---
 After that your wordpress project is ready to be installed via website or CLI
 ### CLI installation
