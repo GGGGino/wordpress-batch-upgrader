@@ -52,7 +52,7 @@ do
     docker exec $FOLDER_NAME /bin/wp-cli.phar --allow-root plugin update --all
     # docker-compose exec $FOLDER_NAME /bin/wp-cli.phar --allow-root theme update --all
 
-    sudo chown -R $myUser:$myGroup ./
+    sudo chown -R $myUser:$myGroup $d
 
     if [ "$commit" = true ]; then
         cd $d
